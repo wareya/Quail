@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <sprite>
-  <origin x="27" y="40"/>
+  <origin x="32" y="40"/>
   <mask>
     <separate>false</separate>
     <shape>RECTANGLE</shape>
     <bounds alphaTolerance="0" mode="MANUAL">
-      <left>20</left>
-      <right>34</right>
-      <top>32</top>
+      <left>22</left>
+      <right>41</right>
+      <top>26</top>
       <bottom>63</bottom>
     </bounds>
   </mask>

@@ -14,14 +14,18 @@
       <appliesTo>.self</appliesTo>
       <arguments>
         <argument kind="STRING">{
-    if(animationState == 1) {
+    if(animationState == 1)
+    {
         animationState = 0;
         alarm[1]=1;
-    } else {
+    }
+    else
+    {
         animationState = 1;
         alarm[1]=29;
     }
-}</argument>
+}
+</argument>
       </arguments>
     </action>
   </actions>

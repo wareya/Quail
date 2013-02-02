@@ -9,3 +9,4 @@ random_set_seed(argument1);
 with(argument0.object.currentWeapon)
     event_user(3);
 random_set_seed(old_seed);
+

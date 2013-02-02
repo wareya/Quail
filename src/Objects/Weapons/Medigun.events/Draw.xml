@@ -23,20 +23,18 @@ ydrawpos = round(y+yoffset);
 
 if(instance_exists(healTarget))
 {
-    if(healTarget.object != -1)
-    {
-        var color;
-        if(healTarget.team == TEAM_RED)
-            color = c_red;
-        else
-            color = c_blue;
-            
-        draw_set_alpha(0.3);
-        draw_line_width_color(xdrawpos+lengthdir_x(24,owner.aimDirection),ydrawpos+lengthdir_y(24,owner.aimDirection),healTarget.object.x, healTarget.object.y, 5, color, color);
-        offset = 2;
-    }
+    var color;
+    if(healTarget.team == TEAM_RED)
+        color = c_red;
+    else
+        color = c_blue;
+        
+    draw_set_alpha(0.3);
+    draw_line_width_color(xdrawpos+lengthdir_x(24,owner.aimDirection),ydrawpos+lengthdir_y(24,owner.aimDirection),healTarget.x, healTarget.y, 5, color, color);
+    offset = 2;
 }
-if !owner.player.humiliated draw_sprite_ext(sprite_index, owner.team+offset, xdrawpos, ydrawpos, image_xscale, image_yscale, image_angle, c_white, 1);
+if (!owner.player.humiliated)
+    draw_sprite_ext(sprite_index, owner.team+offset, xdrawpos, ydrawpos, image_xscale, image_yscale, image_angle, c_white, 1);
 
 </argument>
       </arguments>

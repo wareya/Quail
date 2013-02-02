@@ -15,8 +15,7 @@
       <arguments>
         <argument kind="STRING">if !fade {
     if other.team != team {
-        characterHit=other;
-        other.cloakAlpha = min(other.cloakAlpha + 0.1, 1);
+        characterHit = other;
         event_user(5);
     }
     else {

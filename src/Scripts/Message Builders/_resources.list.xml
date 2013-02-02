@@ -10,4 +10,6 @@
   <resource name="ServerPlayerChangeclass" type="RESOURCE"/>
   <resource name="ServerChangeMap" type="RESOURCE"/>
   <resource name="ServerMessageString" type="RESOURCE"/>
+  <resource name="serializeState" type="RESOURCE"/>
+  <resource name="deserializeState" type="RESOURCE"/>
 </resources>

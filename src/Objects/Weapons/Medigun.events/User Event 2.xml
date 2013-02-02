@@ -14,30 +14,20 @@
       <appliesTo>.self</appliesTo>
       <arguments>
         <argument kind="STRING">{
-    if (readyToShoot &amp;&amp; !instance_exists(healTarget) &amp;&amp; !ubering &amp;&amp; ammoCount &gt; 0) {
-        ammoCount -= 1;
-        playsound(x,y,MedichaingunSnd);
-            var shot;
-        shot = instance_create(x,y + yoffset + 1,Needle);
-        shot.direction=owner.aimDirection;
-        shot.speed=7+random(3);
-        shot.owner=owner;
-        shot.ownerPlayer=ownerPlayer;
-        shot.team=owner.team;
-        shot.hitDamage = 4;
-        shot.weapon=WEAPON_NEEDLEGUN;
-        justShot=true;
-        with(shot)
-            hspeed+=owner.hspeed;
-        readyToShoot=false;
-        alarm[0]=refireTime;
-        alarm[5] = reloadBuffer + reloadTime;
+    if (!global.isHost)
+        exit;
+    
+    if (readyToShoot and !instance_exists(healTarget) and ammoCount &gt; 0 and !ubering and global.isHost)
+    {
+        var seed;
+        seed = irandom(65535);
+        sendEventFireWeapon(ownerPlayer, seed);
+        doEventFireWeapon(ownerPlayer, seed);
     }
-    else if (uberReady &amp;&amp; (owner.keyState &amp; $10)) {
-        if(global.isHost) {
+    else if (uberReady and (owner.keyState &amp; $10))
+    {
             sendEventUber(ownerPlayer);
             doEventUber(ownerPlayer);
-        }
     }
 }
 </argument>

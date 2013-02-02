@@ -26,14 +26,7 @@
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">{
-    write_ubyte(global.serializeBuffer, lobbed);
-    with(Mine) {
-        if(ownerPlayer == other.ownerPlayer) {
-            event_user(12);
-        }
-    }
-}
+        <argument kind="STRING">
 </argument>
       </arguments>
     </action>

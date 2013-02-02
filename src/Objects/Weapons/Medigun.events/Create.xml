@@ -14,22 +14,27 @@
       <appliesTo>.self</appliesTo>
       <arguments>
         <argument kind="STRING">{
-    xoffset = -7;
-    yoffset = 0;
-    refireTime = 3;
-    healTarget = noone;
-    healedThisStep = false;
+    xoffset = -14;
+    yoffset = -4;
+    
+    healDistance = 300;
     healAmount = 0.5;
+    uberDrainRate = 10;
+    
+    healTarget = noone;
     hphealed = 0;
-    maxHealDistance = 300;
+    uberCharge = 0;
     ubering = false;
-    uberCharge=0;
-    uberReady=false;
-    maxAmmo = 40
+    uberReady = false;
+    healedThisStep = false;
+    
+    maxAmmo = 8;
+    reloadTime = 20;
+    reloadBuffer = 20;
+    refireTime = 20;
     ammoCount = maxAmmo;
-    reloadTime = 55;
-    reloadBuffer = 0;
-    idle=true;
+    
+    idle = true;
 }
 </argument>
       </arguments>

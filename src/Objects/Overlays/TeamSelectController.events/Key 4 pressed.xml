@@ -13,10 +13,9 @@
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">if balance != TEAM_BLUE {
-    team=TEAM_BLUE;
-    event_user(1);
-}</argument>
+        <argument kind="STRING">team = TEAM_BLUE;
+event_user(1);
+</argument>
       </arguments>
     </action>
   </actions>

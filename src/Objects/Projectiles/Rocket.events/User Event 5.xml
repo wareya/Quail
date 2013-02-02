@@ -141,12 +141,6 @@
                 rotspeed=random(151)-75;
             }
         }
-    
-        with(Mine) {
-            if (distance_to_object(other) &lt; other.blastRadius*0.66 and (other.team != team or other.ownerPlayer == ownerPlayer)){
-                event_user(2);
-            }
-        }
         
         with(LooseSheet) {
             if (distance_to_object(other) &lt; other.blastRadius){

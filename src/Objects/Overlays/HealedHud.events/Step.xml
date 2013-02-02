@@ -13,23 +13,24 @@
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">
+        <argument kind="STRING">if (global.showHealer or global.myself.object == -1)
+{
+    instance_destroy();
+    exit;
+}
+
+healerPlayer = global.myself.object.healer;
+
 healed = false;
 healer = "";
 healerUberCharge = 0;
 
-for(i=0; i&lt;ds_list_size(global.players); i+=1) {
-    player = ds_list_find_value(global.players, i);
-    if(player.team == global.myself.team &amp;&amp; player.class == CLASS_MEDIC) {
-        if(player.object != -1){
-            if(player.object.currentWeapon.healTarget == global.myself){
-                healed = true;
-                healer = player.name;
-                healerUberCharge = player.object.currentWeapon.uberCharge;
-                healerhp = floor(player.object.hp);
-            }
-        }
-    }
+if(healerPlayer.object.currentWeapon.healTarget == global.myself.object)
+{
+    healed = true;
+    healer = healerPlayer.name;
+    healerUberCharge = healerPlayer.object.currentWeapon.uberCharge;
+    healerhp = floor(healerPlayer.object.hp);
 }
 </argument>
       </arguments>

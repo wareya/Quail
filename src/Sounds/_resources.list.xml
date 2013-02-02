@@ -42,4 +42,6 @@
   <resource name="SentryFloorSnd" type="RESOURCE"/>
   <resource name="SentryBuildSnd" type="RESOURCE"/>
   <resource name="PickupSnd" type="RESOURCE"/>
+  <resource name="RailBombSnd" type="RESOURCE"/>
+  <resource name="RailChargeSnd" type="RESOURCE"/>
 </resources>

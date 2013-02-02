@@ -13,10 +13,15 @@
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">if instance_exists(DeathCam) exit;
-if global.myself != -1 {
-    if global.myself.team == TEAM_RED image_index=0;
-    else image_index=1;
+        <argument kind="STRING">if instance_exists(DeathCam)
+    exit;
+    
+if (global.myself != -1)
+{
+    if (global.myself.team == TEAM_RED)
+        image_index=0;
+    else
+        image_index = 1;
 }
 
 var xoffset, yoffset, xsize, ysize;

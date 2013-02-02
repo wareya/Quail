@@ -47,18 +47,12 @@ with (Rocket) {
         event_user(5);
     }
 }
-    
 with (DeadGuy) {
     if (distance_to_object(other) &lt; other.blastRadius){
         motion_add(point_direction(other.x,other.y,x,y),10-10*(distance_to_object(other)/other.blastRadius));
     }
 }
-    
-with(Mine) {
-    if (distance_to_object(other) &lt; other.blastRadius){
-        event_user(2);
-    }
-}
+
 with (Gib) {
     if (distance_to_object(other) &lt; other.blastRadius){
         motion_add(point_direction(other.x,other.y,x,y),15-15*(distance_to_object(other)/other.blastRadius));

@@ -14,47 +14,53 @@
       <appliesTo>.self</appliesTo>
       <arguments>
         <argument kind="STRING">{
-    receiveCompleteMessage(global.serverSocket,3,global.deserializeBuffer);
-    keyState = read_ubyte(global.deserializeBuffer);
+    receiveCompleteMessage(global.serverSocket,6,global.deserializeBuffer);
+    keyState = read_ushort(global.deserializeBuffer);
     aimDirection = read_ushort(global.deserializeBuffer)*360/65536;
+    aimDistance  = read_ushort(global.deserializeBuffer)*10;
     
     var temp, newIntel;
-    if(global.updateType == QUICK_UPDATE) or (global.updateType == FULL_UPDATE) {
-        receiveCompleteMessage(global.serverSocket,9,global.deserializeBuffer);
+    if(global.updateType == QUICK_UPDATE) or (global.updateType == FULL_UPDATE)
+    {
+        receiveCompleteMessage(global.serverSocket,12,global.deserializeBuffer);
         x = read_ushort(global.deserializeBuffer)/5;
         y = read_ushort(global.deserializeBuffer)/5;
-        hspeed = read_byte(global.deserializeBuffer)/8.5;
-        vspeed = read_byte(global.deserializeBuffer)/8.5;
+        hspeed = read_short(global.deserializeBuffer)/20;
+        vspeed = read_short(global.deserializeBuffer)/20;
         xprevious = x;
         yprevious = y;
         
-        hp = read_ubyte(global.deserializeBuffer);
+        hp = read_short(global.deserializeBuffer)/100;
         currentWeapon.ammoCount = read_ubyte(global.deserializeBuffer);
         
         temp = read_ubyte(global.deserializeBuffer);
-        cloak = (temp &amp; $01 != 0);
-        newIntel = (temp &amp; $02 != 0);
-        moveStatus = (temp &gt;&gt; 2) &amp; $07;
+        cloak = (temp &amp; $01);
+        newIntel = (temp &amp; $02);
+        moveStatus = uncropShift(temp, 3, 2); // (temp &gt;&gt; 2) &amp; $07;
+        
         // Drop the intel if intel changes from true to false, destroy the intel when if changes from false to true
         // This is more of a workaround to keep 2.1.2 compatible with 2.1.1, it should be solved later by
         // fully syncing intel drop.
-        if(newIntel and !intel) {
-            if(team == TEAM_RED) {
-                with(IntelligenceBlue) {
+        if(newIntel and !intel)
+        {
+            if(team == TEAM_RED)
+            {
+                with(IntelligenceBlue)
                     instance_destroy();
-                }
-            } else if(team == TEAM_BLUE) {
-                with(IntelligenceRed) {
-                    instance_destroy();
-                }
             }
-        } else if(!newIntel &amp;&amp; intel) {
-            event_user(5);
+            else if(team == TEAM_BLUE)
+            {
+                with(IntelligenceRed)
+                    instance_destroy();
+            }
         }
+        else if(!newIntel &amp;&amp; intel)
+            event_user(5);
         intel = newIntel;
     }
     
-if(global.updateType == FULL_UPDATE){
+if(global.updateType == FULL_UPDATE)
+{
         receiveCompleteMessage(global.serverSocket,4,global.deserializeBuffer);
         animationOffset = read_ubyte(global.deserializeBuffer);
         //class specific syncs
@@ -75,9 +81,11 @@ if(global.updateType == FULL_UPDATE){
         default:
             read_ubyte(global.deserializeBuffer)
         }
-        alarm[1]=read_short(global.deserializeBuffer); 
-        if alarm[1] != 0 canGrabIntel = false;
-        with(currentWeapon) {
+        alarm[1] = read_short(global.deserializeBuffer); 
+        if (alarm[1] != 0)
+            canGrabIntel = false;
+        with(currentWeapon)
+        {
             event_user(13);
         }
     }

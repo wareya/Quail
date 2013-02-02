@@ -19,9 +19,29 @@ if(killer and instance_exists(killer)) {
 } else {
     write_ubyte(global.eventBuffer, 255);
 }
-if(assistant and instance_exists(assistant)) {
+if(assistant and instance_exists(assistant))
     write_ubyte(global.eventBuffer, ds_list_find_index(global.players, assistant));
-} else {
+else
     write_ubyte(global.eventBuffer, 255);
-}  
+
 write_ubyte(global.eventBuffer, damageSource);
+
+
+if (global.isHost)
+{
+    if (victim.object.healer != -1)
+    {
+        if (instance_exists(victim.object.healer)) // this has to be done this way because of the nature of "-1" an instance being "self"
+        {
+            sendEventReleaseHealingTarget(victim, victim.object.healer);
+            doEventReleaseHealingTarget(victim, victim.object.healer);
+        }
+    }
+    if (victim.object.intel)
+    {
+        sendEventDropIntel(victim, 0);
+        doEventDropIntel(victim, 0);
+    }
+}
+
+

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="WeaponHUDS" type="GROUP"/>
+  <resource name="Timer" type="GROUP"/>
+  <resource name="HealthHUD" type="RESOURCE"/>
+  <resource name="HealthCrossS" type="RESOURCE"/>
+  <resource name="CharacterHUD" type="RESOURCE"/>
+</resources>

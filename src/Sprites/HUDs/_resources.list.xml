@@ -7,10 +7,8 @@
   <resource name="Class and Team Select" type="GROUP"/>
   <resource name="Menus" type="GROUP"/>
   <resource name="ScoreBoard" type="GROUP"/>
-  <resource name="WeaponHUDS" type="GROUP"/>
-  <resource name="Timer" type="GROUP"/>
   <resource name="Lobby" type="GROUP"/>
-  <resource name="CharacterHUD" type="RESOURCE"/>
+  <resource name="Ingame" type="GROUP"/>
   <resource name="GameNoticeS" type="RESOURCE"/>
   <resource name="NemesisS" type="RESOURCE"/>
   <resource name="FullChargeS" type="RESOURCE"/>

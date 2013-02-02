@@ -14,9 +14,13 @@
       <appliesTo>.self</appliesTo>
       <arguments>
         <argument kind="STRING">loopsoundstop(MedigunSnd);
-if(instance_exists(healTarget))
-    if(healTarget.object != -1)
-        healTarget.object.healer = -1;
+
+if(instance_exists(healTarget) and global.isHost and healTarget != -1)
+{
+    // -1 reads as "self", so instance_exist(-1) [for healTarget = -1] might cause errors
+    sendEventReleaseHealingTarget(healTarget.player, ownerPlayer);
+    doEventReleaseHealingTarget(healTarget.player, ownerPlayer);
+}
 </argument>
       </arguments>
     </action>

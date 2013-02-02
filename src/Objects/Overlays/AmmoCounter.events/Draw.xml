@@ -13,7 +13,7 @@
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">var xoffset, yoffset, xsize, ysize;
+        <argument kind="STRING">var xoffset, yoffset, xsize, ysize, toffset;
 xoffset = view_xview[0];
 yoffset = view_yview[0];
 xsize = view_wview[0];
@@ -22,13 +22,12 @@ draw_set_alpha(1);
 
 if global.myself.object != -1 {
     if instance_exists(global.myself.object.currentWeapon) {
-        barcolor=make_color_rgb(217,217,183);
+        barcolor = make_color_rgb(217,217,183);
         draw_set_color(barcolor);
     
         //set team offset here - but rocketmans is different because
         //of the little rockets that are drawn
-        if global.myself.team == TEAM_BLUE toffset = 1;
-        else toffset = 0;
+        toffset = global.myself.team == TEAM_BLUE;
         
         if global.myself.class==CLASS_SOLDIER {
             if global.myself.team == TEAM_BLUE toffset = 5;
@@ -37,11 +36,17 @@ if global.myself.object != -1 {
             draw_sprite_ext(Rocketclip,global.myself.object.currentWeapon.ammoCount+toffset,xoffset+728,yoffset+ysize/1.26+86,2.4,2.4,0,c_white,100);
             draw_healthbar(xoffset+689,yoffset+ysize/1.26+90,xoffset+723,yoffset+ysize/1.26+98,reloadscalar,c_black,barcolor,barcolor,0,true,false);
         }
-        else if global.myself.class==CLASS_DEMOMAN{        
-            reloadscalar = 100-global.myself.object.currentWeapon.alarm[5]/global.myself.object.currentWeapon.reloadTime*100;
-            draw_sprite_ext(MinegunAmmoS,toffset,xoffset+728,yoffset+ysize/1.26+86,2.4,2.4,0,c_white,100);
-            draw_text(xoffset+765,yoffset+ysize/1.26+95,global.myself.object.currentWeapon.ammoCount);
-            draw_healthbar(xoffset+700,yoffset+ysize/1.26+90,xoffset+750,yoffset+ysize/1.26+98,reloadscalar,c_black,barcolor,barcolor,0,true,false);
+        else if (global.myself.class == CLASS_DEMOMAN)
+        {
+            with(global.myself.object.currentWeapon)
+            {
+                self.hud_xoffset = view_xview[0];
+                self.hud_yoffset = view_yview[0];
+                self.xsize = view_wview[0];
+                self.ysize = view_hview[0];
+                self.toffset = hud_blu_offset*(global.myself.team == TEAM_BLUE);
+                event_user(11);
+            }
         }
         else if global.myself.class==CLASS_SCOUT {
             reloadscalar = 100-global.myself.object.currentWeapon.alarm[5]/global.myself.object.currentWeapon.reloadTime*100;

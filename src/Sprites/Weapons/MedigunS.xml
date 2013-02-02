@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <sprite>
-  <origin x="8" y="3"/>
+  <origin x="10" y="6"/>
   <mask>
     <separate>false</separate>
     <shape>RECTANGLE</shape>
-    <bounds alphaTolerance="0" mode="AUTO"/>
+    <bounds alphaTolerance="0" mode="MANUAL">
+      <left>8</left>
+      <right>8</right>
+      <top>3</top>
+      <bottom>3</bottom>
+    </bounds>
   </mask>
   <preload>true</preload>
   <smoothEdges>false</smoothEdges>

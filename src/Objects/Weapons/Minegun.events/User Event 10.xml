@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="OTHER" id="20">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">// weapon firing
+
+// cancel if we can't shoot
+if (ownerPlayer.humiliated or !readyToShoot)
+{
+    sound_stop(RailChargeSnd)
+    exit;
+}
+
+// curve physics
+rail = instance_create(x+cos(degtorad(owner.aimDirection))*10, y-sin(degtorad(owner.aimDirection))*10, Rail);
+rail.direction = owner.aimDirection;
+// faux-speed for the hitscan arc tracing
+rail.speed = 12;
+// first 1/4th cos curve of 0.2 -&gt; 0 over full chargeup
+rail.gravity = 0.2 * (cos(degtorad(chargeUp*90/chargeMax)));
+
+// attributes
+rail.owner = owner;
+rail.ownerPlayer = ownerPlayer;
+rail.team = owner.team;
+rail.weapon = WEAPON_MINEGUN;
+
+// cleanup
+justShot = true;
+readyToShoot = false;
+alarm[0] = refireTime;
+
+playsound(x, y, RailBombSnd)
+if (chargeUp != chargeMax)
+    sound_stop(RailChargeSnd)
+chargeUp = 0;
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

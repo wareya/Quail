@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">x = spawn_x;
+y = spawn_y;
+hspeed = spawn_h;
+vspeed = spawn_v;
+
+t_x = x;
+t_y = y;
+step_limit = 300;
+
+draw_set_alpha(laserAlpha);
+
+oldvspeed = vspeed;
+
+for (i = 0; i &lt; step_limit; i += 1)
+{
+    vspeed += gravity;
+    n_x = t_x + hspeed;
+    n_y = t_y + vspeed;
+    
+    if (laserAlpha &gt; 0.05)
+    {
+        
+        if(owner.team == TEAM_RED)
+            draw_line_width_color(t_x ,t_y, n_x, n_y, 2, c_red,  c_red );
+        else
+            draw_line_width_color(t_x ,t_y, n_x, n_y, 2, c_blue, c_blue);
+        
+    }
+    else
+        instance_destroy();
+    
+    // find out if this segment collides with something; if so then break
+    if(    collision_line(t_x, t_y, n_x, n_y, Obstacle,  true, true) != noone
+        or collision_line(t_x, t_y, n_x, n_y, Sentry,    true, true) != noone)
+        break;
+    inst = collision_line(t_x, t_y, n_x, n_y, Character, true, true);
+    if(inst != noone)
+        if (inst.team != owner.team) // we don't want to collide with friendlies
+            break;
+    
+    t_x = n_x;
+    t_y = n_y;
+}
+
+// We don't "snug up" the final coords here because it's a waste of CPU to fix the minor visual glitch.
+
+vspeed = oldvspeed;
+
+laserAlpha /= 1.75;
+draw_set_alpha(1);
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

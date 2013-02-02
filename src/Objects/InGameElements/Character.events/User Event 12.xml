@@ -14,29 +14,33 @@
       <appliesTo>.self</appliesTo>
       <arguments>
         <argument kind="STRING">{
-    var temp;
-    write_ubyte(global.serializeBuffer, keyState);
+    write_ushort(global.serializeBuffer, keyState);
     write_ushort(global.serializeBuffer, netAimDirection);
+    write_ushort(global.serializeBuffer, netAimDistance);
 
-    if(global.updateType == QUICK_UPDATE or global.updateType == FULL_UPDATE) {
+    if(global.updateType == QUICK_UPDATE or global.updateType == FULL_UPDATE)
+    {
         write_ushort(global.serializeBuffer, x*5);
         write_ushort(global.serializeBuffer, y*5);
-        write_byte(global.serializeBuffer, hspeed*8.5);
-        write_byte(global.serializeBuffer, vspeed*8.5);
-        write_ubyte(global.serializeBuffer, ceil(hp));
-        write_ubyte(global.serializeBuffer, currentWeapon.ammoCount);
+        write_short (global.serializeBuffer, hspeed*20);
+        write_short (global.serializeBuffer, vspeed*20);
+        write_short (global.serializeBuffer, ceil(hp*100));
+        write_ubyte (global.serializeBuffer, currentWeapon.ammoCount);
         
         temp = 0;
-        if(cloak) temp |= $01;
-        if(intel) temp |= $02;
-        //allocate the next three bits of the byte for movestatus sync
-        temp |= (moveStatus &amp; $07) &lt;&lt; 2;
+        if(cloak)
+            temp |= $01;
+        if(intel)
+            temp |= $02;
+        temp |= cropShift(moveStatus, 3, 2);
+        
         write_ubyte(global.serializeBuffer, temp);               
     }
-   
-
-if(global.updateType == FULL_UPDATE){
-    write_ubyte(global.serializeBuffer, animationOffset);
+    
+    
+    if(global.updateType == FULL_UPDATE)
+    {
+        write_ubyte(global.serializeBuffer, animationOffset);
         //class specific syncs
         switch(player.class)
         {

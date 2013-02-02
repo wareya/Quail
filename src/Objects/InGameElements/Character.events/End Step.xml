@@ -20,7 +20,7 @@
         if (lastDamageDealer.object)
             if (lastDamageDealer.object.healer)
                 assistant = lastDamageDealer.object.healer;
-                
+    
     sendEventPlayerDeath(player, lastDamageDealer, assistant, lastDamageSource);
     doEventPlayerDeath(player, lastDamageDealer, assistant, lastDamageSource);
     with(GameServer) {
@@ -87,12 +87,15 @@ if (omnomnomnom)
     if omnomnomnomindex &gt;= omnomnomnomend omnomnomnom=false;
 }
 
-//for things polling whether the character is on a medcabinet
+// for things polling whether the character is on a medcabinet
 onCabinet = place_meeting(x, y, HealingCabinet);
 
 // Last x/y position for death cam if player is dead
 player.lastKnownx=x;
 player.lastKnowny=y;
+
+// this needs to happen at the end of everything so it's here
+lastKeyState = keyState|pressedKeys;
 </argument>
       </arguments>
     </action>

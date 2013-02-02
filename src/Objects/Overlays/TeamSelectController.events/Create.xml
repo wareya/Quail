@@ -16,12 +16,16 @@
         <argument kind="STRING">alpha=0.01;
 done = false;
 newteam = -1;
+team = -1;
 door = -1;
 redteam=0;
 blueteam=0;
 y=-120;
 afk=false;
-balance = calculateTeamBalance();</argument>
+balance = calculateTeamBalance();
+
+alarm[1] = -1;
+</argument>
       </arguments>
     </action>
   </actions>

@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
+  <resource name="head_message" type="RESOURCE"/>
+  <resource name="initwarhud" type="RESOURCE"/>
+  <resource name="cropShift" type="RESOURCE"/>
+  <resource name="uncropShift" type="RESOURCE"/>
   <resource name="createGib" type="RESOURCE"/>
 </resources>

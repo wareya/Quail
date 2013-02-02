@@ -13,19 +13,61 @@
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">if(global.myself.team == TEAM_BLUE) {
-    image_index = global.myself.class + 10;
-} else {
-    image_index = global.myself.class;
-}
-
-if(global.myself.object == -1) {
+        <argument kind="STRING">if(global.myself.object == -1)
+{
     instance_destroy();
     exit; 
 }
 
-drawHealth(45, 547, global.myself.object.hp, global.myself.object.maxHp);
-draw_sprite_ext(sprite_index, image_index, view_xview[0]+5, view_yview[0]+525, 2, 2, 0, c_white, 1);
+text_xpos = 45+24;
+text_ypos = 547+18;
+sprite_xpos = 11;
+sprite_ypos = 525;
+icon_xpos = 11;
+icon_ypos = 545;
+hp = global.myself.object.hp;
+maxHp = global.myself.object.maxHp;
+scale = 2;
+event_user(0);
+
+//health icon outline and backing
+draw_sprite_ext(sprite_index , 0, view_xview[0]+sprite_xpos, view_yview[0]+sprite_ypos, scale, scale, 0, c_white, 1);
+draw_sprite_ext(health_sprite, 0, view_xview[0]+sprite_xpos, view_yview[0]+sprite_ypos, scale, scale, 0, c_black, 1);
+
+//draw dynamic colored health icon
+//TODO: Optimize to one sprite draw w/ prepared color blend
+icon_yoffset = 10;
+icon_ysize = 17;
+hppixels = hp/maxHp*17;
+
+draw_sprite_part_ext(health_sprite,0,0,(icon_ysize-hppixels)+icon_yoffset,sprite_width,hppixels+1,view_xview[0]+icon_xpos, view_yview[0]+icon_ypos+(icon_ysize-hppixels)*scale,scale,scale,c_red,1);
+draw_sprite_part_ext(health_sprite,0,0,(icon_ysize-hppixels)+icon_yoffset,sprite_width,hppixels+1,view_xview[0]+icon_xpos, view_yview[0]+icon_ypos+(icon_ysize-hppixels)*scale,scale,scale,c_green,hp/maxHp);
+
+//start picking HP # text colors
+if(global.myself.team == TEAM_RED)
+    c_shadow = c_redteam;
+if(global.myself.team == TEAM_BLUE)
+    c_shadow = c_bluteam;
+if(global.warhud_style == 2 or (hp &lt;= 55 or hp &lt;= maxHp/2 and global.myself.team == TEAM_BLUE))
+    //logic to prevent blue on red hue clashing at low health on blu team w/ team colored dropshadow option
+    c_shadow = c_offblack; //offblack
+
+//colors for HP # text, red = can die in one hit; orange = taking too much heat
+if(hp &lt;= 55)
+    hpColor = c_red;
+else if(hp &lt;= maxHp/2)
+    hpColor = c_orange;
+else 
+    hpColor = c_offwhite;
+
+draw_set_valign(fa_center);
+draw_set_halign(fa_left);
+hpText = string(ceil(max(hp,0)));
+size = 3;
+
+if(global.warhud_style)
+    draw_text_transformed_color(view_xview[0]+text_xpos+size, view_yview[0]+text_ypos+size, hpText, size, size, 0, c_shadow, c_shadow, c_shadow, c_shadow, 1);
+draw_text_transformed_color(view_xview[0]+text_xpos, view_yview[0]+text_ypos, hpText, size, size, 0, hpColor, hpColor, hpColor, hpColor, 1);
 </argument>
       </arguments>
     </action>

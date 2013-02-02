@@ -13,23 +13,12 @@
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">var oid, newx, newy;
-playsound(x,y,MinegunSnd);
-ammoCount = max(0, ammoCount-1);
-
-oid = instance_create(x+lengthdir_x(10,owner.aimDirection),y+lengthdir_y(10,owner.aimDirection), Mine);
-
-oid.direction=owner.aimDirection;
-oid.speed=12;
-oid.owner=owner;
-oid.ownerPlayer=ownerPlayer;
-oid.team=owner.team;
-oid.weapon=WEAPON_MINEGUN;
-lobbed += 1;
-justShot=true;
-readyToShoot = false;
-alarm[0] = refireTime;
-alarm[5] = reloadBuffer + reloadTime;
+        <argument kind="STRING">if (chargeUp == 0) // if we're starting, begin the chargeup sound
+    chargingsound = playsound(x, y, RailChargeSnd)
+if (chargeUp &lt; chargeMax)  // increase charge
+    chargeUp += 1;
+if (chargeUp == chargeMax) // if we're overcharged, set off the timer
+    event_user(10);
 </argument>
       </arguments>
     </action>

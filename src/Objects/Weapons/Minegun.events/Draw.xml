@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="DRAW" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">// duplicated from Rail step event; any changes must be shared!
+
+if (chargeUp)
+{
+    t_x = x;
+    t_y = y;
+    step_limit = 300;
+    
+    v_s = 12 * -sin(degtorad(owner.aimDirection));
+    h_s = 12 * cos(degtorad(owner.aimDirection));
+    
+    for (i = 0; i &lt; step_limit; i += 1)
+    {
+        v_s += 0.2 * (cos(degtorad(chargeUp*90/chargeMax)));
+        n_x = t_x + h_s;
+        n_y = t_y + v_s;
+        
+        do
+        {
+            inst = collision_line(t_x, t_y, n_x, n_y, Obstacle, true, true);
+            if(inst != noone)
+                break;
+            inst = collision_line(t_x, t_y, n_x, n_y, Character, true, true);
+            if(inst != noone)
+                if (inst.team != owner.team)
+                    break;
+            inst = collision_line(t_x, t_y, n_x, n_y, Sentry, true, true);
+            if(inst != noone)
+                break;
+        }
+        until (true)
+        
+        if(inst != noone)
+            break;
+        else
+        {
+            t_x = n_x;
+            t_y = n_y;
+        }
+    }
+    
+    if (inst != noone)
+    {        
+        p_x = t_x;
+        p_y = t_y;
+        s_x = n_x;
+        s_y = n_y;
+        
+        while(point_distance(p_x, p_y, s_x, s_y) &gt; 1)
+        {
+            x_mid = (p_x + s_x)/2;
+            y_mid = (p_y + s_y)/2;
+            
+            collided = collision_line(p_x, p_y, x_mid, y_mid, inst,  true, true)
+            
+            if(!collided)
+            {
+                p_x = x_mid;
+                p_y = y_mid;
+            }
+            else
+            {
+                s_x = x_mid;
+                s_y = y_mid;
+            }
+        }
+        
+        t_x = (p_x + s_x)/2;
+        t_y = (p_y + s_y)/2;
+    }
+    
+    if(owner.team == TEAM_RED)
+        team_color = c_red;
+    else
+        team_color = c_blue;
+    
+    draw_set_color(team_color);
+    draw_set_alpha(0.35);
+    draw_circle(t_x, t_y, 4, 0)
+    draw_set_alpha(chargeUp/chargeMax*0.65);
+    draw_circle(t_x, t_y, 4, 0)
+}
+</argument>
+      </arguments>
+    </action>
+    <action id="604" library="1">
+      <!--action name: Inherited-->
+      <kind>NORMAL</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>false</canApplyTo>
+      <actionType>FUNCTION</actionType>
+      <functionName>action_inherited</functionName>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments/>
+    </action>
+  </actions>
+</event>

@@ -13,20 +13,112 @@
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">if(uberReady){
-    if(alarm[4]&lt;=0) {
-        loopsoundstart(x,y,UberIdleSnd);
-    } else {
-        loopsoundmaintain(x,y,UberIdleSnd);
+        <argument kind="STRING">if (instance_exists(healTarget)) // if we're healing...
+{
+    beamStartX = lengthdir_x(24,owner.aimDirection)
+    beamStartY = lengthdir_y(24,owner.aimDirection)
+    
+    // this is done this way because of the mechanics of the distance_to_ functions.
+    with(healTarget)
+        other.range = distance_to_point(other.x, other.y);
+    
+    if ((!collision_line(x,y, healTarget.x, healTarget.y, Obstacle, true, true) // no wall between us
+        or !collision_line(x+beamStartX, y+beamStartY, healTarget.x, healTarget.y, Obstacle, true, true)) // no wall between the medibeam start and the target
+        and range &lt;= healDistance // in range
+        and (owner.keyState &amp; $10)) // actually pressing m1
+    {  
+        healedThisStep = true;
+        
+        if (healTarget.healer == -1)
+            healTarget.healer = ownerPlayer;
+        
+        if (healTarget.burnDuration &gt; 0)
+            healTarget.burnDuration -= 1;
+        
+        var healthGained;
+        healthGained = healAmount * calculateHealingFactor(healTarget.timeUnscathed);
+        healTarget.hp = min(healTarget.hp + healthGained, healTarget.maxHp);
+        hphealed += healthGained;
+        ownerPlayer.stats[HEALING] += healthGained;
+        ownerPlayer.roundStats[HEALING] += healthGained;
+        
+        
+        if(!ubering and uberCharge &lt; 2000)
+        {
+            uberCharge += 1.5;
+            
+            var setup;
+            setup = false;
+            if instance_exists(ControlPointSetupGate)
+            {
+                if (ControlPointSetupGate.solid)
+                    setup = true;
+            }
+            
+            if(healTarget.hp &lt; healTarget.maxHp/2 or setup)
+                uberCharge += 1;
+            
+            if(uberCharge &gt;= 2000 and global.isHost)
+            {
+                uberCharge = 2000;
+                sendEventUberReady(ownerPlayer);
+                doEventUberReady(ownerPlayer);
+            }
+        }
+        else if(ubering)
+        {
+            if (!healTarget.ubered == 0)
+                playsound(x,y,UberStartSnd);
+            healTarget.ubered = 1;
+            healTarget.alarm[2] = 3; 
+        }
+                                                   
+        if (hphealed &gt;= HP_PER_POINT)
+        {
+            ownerPlayer.stats[POINTS] += 1;
+            ownerPlayer.roundStats[POINTS] += 1;
+            hphealed -= HP_PER_POINT;
+        }
+        
+        if(alarm[3 ]&lt;= 0)
+            loopsoundstart(x,y,MedigunSnd);
+        else
+            loopsoundmaintain(x,y,MedigunSnd);
+        
+        alarm[3] = 2;
     }
-    alarm[4]=2;
+    else if (global.isHost)
+    {
+        sendEventReleaseHealingTarget(healTarget.player, ownerPlayer);
+        doEventReleaseHealingTarget(healTarget.player, ownerPlayer);
+    }
+}
+    
+    //if(!healedThisStep and global.isHost)
+    //{
+    //    sendEventReleaseHealingTarget(healTarget.player, ownerPlayer);
+    //    doEventReleaseHealingTarget(healTarget.player, ownerPlayer);
+    //}
+    //healedThisStep = false;
+
+if(uberReady)
+{
+    if(alarm[4] &lt;= 0)
+        loopsoundstart(x, y, UberIdleSnd);
+    else
+        loopsoundmaintain(x, y, UberIdleSnd);
+
+    alarm[4] = 2;
 }
 
-if(ubering) {
+if(ubering)
+{
     owner.ubered = 1;
-    owner.alarm[2]=3;
-    uberCharge -= 10;
-    if(uberCharge&lt;=0) {
+    owner.alarm[2] = 3;
+    uberCharge -= uberDrainRate;
+    
+    if(uberCharge &lt;= 0)
+    {
         uberCharge = 0;
         ubering = false;
     }

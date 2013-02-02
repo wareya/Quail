@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="OTHER" id="21">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">// hud drawing "method"
+// executed in AmmoCounter draw
+// x/y/t(eam)offset and x/ysize are set into here from there
+
+if (readyToShoot)
+{
+    bar_size = chargeUp/chargeMax*100;
+    bar_color = make_color_rgb(217,217,183) * (chargeUp &gt; 0); // * bool -&gt; prevent 0% charge = 1 pixel glitch
+}
+else
+{
+    bar_size = alarm[0]/refireTime*100;
+    bar_color = make_color_rgb(150,50,50);
+}
+draw_sprite_ext(MinegunAmmoS,toffset,hud_xoffset+728,hud_yoffset+ysize/1.26+86,2.4,2.4,0,c_white,100);
+draw_text(hud_xoffset+765,hud_yoffset+ysize/1.26+95,ammoCount);
+draw_healthbar(hud_xoffset+700, hud_yoffset+ysize/1.26+90, hud_xoffset+750, hud_yoffset+ysize/1.26+98,
+                bar_size,
+                c_black,bar_color,bar_color,
+                0,true,false);
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

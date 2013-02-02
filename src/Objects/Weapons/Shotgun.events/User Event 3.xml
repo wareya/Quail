@@ -19,15 +19,14 @@ var shot;
 repeat(5) {
     shot = instance_create(x,y,Shot);
     shot.hitDamage = 7;
-    shot.direction=owner.aimDirection+(random(11)-5);
+    shot.direction=owner.aimDirection+(random(11)-5.5);
     shot.speed=11+random(4);
     shot.owner=owner;
     shot.ownerPlayer=ownerPlayer;
     shot.team=owner.team;
     shot.weapon=WEAPON_SHOTGUN;
-    with(shot) {
+    with(shot)
         hspeed+=owner.hspeed;
-    }
 }
 justShot=true;
 readyToShoot=false;

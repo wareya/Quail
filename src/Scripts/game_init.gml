@@ -50,6 +50,7 @@
     global.timerPos=ini_read_real("Settings","Timer Position", 0)
     global.killLogPos=ini_read_real("Settings","Kill Log Position", 0)
     global.kothHudPos=ini_read_real("Settings","KoTH HUD Position", 0)
+    global.warhud_style = ini_read_real("Settings","WarHUD_style",1);
     global.clientPassword = "";
     // for admin menu
     customMapRotationFile = ini_read_string("Server", "MapRotation", "");
@@ -175,10 +176,10 @@
     global.gg2lobbyId = buffer_create();
     parseUuid(GG2_LOBBY_UUID, global.gg2lobbyId);
     
-var a, IPRaw, portRaw;
-doubleCheck=0;
-global.launchMap = "";
-
+    var a, IPRaw, portRaw;
+    doubleCheck=0;
+    global.launchMap = "";
+    
     for(a = 1; a <= parameter_count(); a += 1) 
     {
         if (parameter_string(a) == "-dedicated")
@@ -323,7 +324,8 @@ global.launchMap = "";
     draw_set_font(global.gg2Font);
     cursor_sprite = CrosshairS;
     
-    if(!directory_exists(working_directory + "\Maps")) directory_create(working_directory + "\Maps");
+    if(!directory_exists(working_directory + "\Maps"))
+        directory_create(working_directory + "\Maps");
     
     instance_create(0, 0, AudioControl);
     instance_create(0, 0, SSControl);
@@ -356,7 +358,8 @@ global.launchMap = "";
     
     calculateMonthAndDay();
 
-    if(!directory_exists(working_directory + "\Plugins")) directory_create(working_directory + "\Plugins");
+    if(!directory_exists(working_directory + "\Plugins"))
+        directory_create(working_directory + "\Plugins");
     loadplugins();
     
     if(global.dedicatedMode == 1) {

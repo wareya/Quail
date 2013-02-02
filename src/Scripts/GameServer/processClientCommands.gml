@@ -120,7 +120,7 @@ while(commandLimitRemaining > 0) {
             else
                 balance = -1;
             
-            if(balance != newTeam)
+            //if(balance != newTeam)
             {
                 if(getCharacterObject(newTeam, player.class) != -1 or newTeam==TEAM_SPECTATOR)
                 {  
@@ -264,14 +264,14 @@ while(commandLimitRemaining > 0) {
             }
             break;
             
-        case INPUTSTATE:
+        case INPUT_CMD:
             if(player.object != -1)
             {
                 with(player.object)
                 {
-                    keyState = read_ubyte(socket);
-                    netAimDirection = read_ushort(socket);
-                    aimDirection = netAimDirection*360/65536;
+                    keyState        = read_ushort(socket);
+                    netAimDirection = read_ushort(socket)*360/65536;
+                    netAimDistance  = read_ushort(socket)*10;
                     event_user(1);
                 }
             }

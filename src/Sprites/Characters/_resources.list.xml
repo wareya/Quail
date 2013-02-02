@@ -15,6 +15,7 @@
   <resource name="DemomanRedS" type="RESOURCE"/>
   <resource name="SniperRedS" type="RESOURCE"/>
   <resource name="SniperCrouchRedS" type="RESOURCE"/>
+  <resource name="charHullS" type="RESOURCE"/>
   <resource name="EngineerBlueS" type="RESOURCE"/>
   <resource name="HeavyBlueS" type="RESOURCE"/>
   <resource name="MedicBlueS" type="RESOURCE"/>

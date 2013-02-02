@@ -13,21 +13,25 @@
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">if intel == true {
+        <argument kind="STRING">if (intel)
+{
     sound_play(IntelDropSnd);
-    intel=false;
-    canGrabIntel=false;
-    alarm[1]=300;
-    animationOffset=CHARACTER_ANIMATION_NORMAL;
+    intel = false;
+    canGrabIntel = false;
+    alarm[1] = 30;
+    animationOffset = CHARACTER_ANIMATION_NORMAL;
     var isMe;
     isMe = (global.myself == player);
     recordEventInLog(5, player.team, player.name, isMe); 
         
-    if(team == TEAM_RED) {
+    if(team == TEAM_RED)
         newIntel = instance_create(x,y,IntelligenceBlue);
-    } else if (team == TEAM_BLUE){
+    else if (team == TEAM_BLUE)
         newIntel = instance_create(x,y,IntelligenceRed);
-    }
+    
+    newIntel.speed = speed * 1.4;
+    newIntel.direction = direction;
+    
     newIntel.alarm[0] = 900;     
 }
 </argument>

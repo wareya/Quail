@@ -8,10 +8,13 @@
 //argument 7: override randomized hs/vspeed
 var gib;
 gib = instance_create(argument0,argument1,argument2);
-if (argument7) {
+if (argument7)
+{
     gib.hspeed = argument3;
     gib.vspeed = argument4;
-}else{
+}
+else
+{
     gib.hspeed = (argument3+random_range(-8,9));
     gib.vspeed = (argument4+random_range(-8,9));
 }

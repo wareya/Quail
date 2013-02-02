@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="OTHER" id="12">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">o_x = x;
+o_y = y;
+x = t_x;
+y = t_y;
+
+instance_create(x, y, Explosion);
+playsound(x, y, ExplosionSnd);
+
+with (Character) {
+    if (distance_to_object(other) &lt; other.blastRadius
+         and !(team == other.team
+               and id != other.ownerPlayer.object
+               and place_meeting(x, y+1, Obstacle))) // if grounded friendly then don't take knockback
+    {
+        vecdir = point_direction(other.x, other.y, x, y);
+        magnitude = other.blastRadius-distance_to_object(other);
+        dealDamage(magnitude, other.ownerPlayer, id, vecdir, 1, 1)
+    }
+}
+
+with (Sentry){
+    if (distance_to_object(other) &lt; other.blastRadius) { 
+        magnitude = other.blastRadius-distance_to_object(other);
+        dealDamage(magnitude, other.ownerPlayer, id, 0, 0, 0)
+    }   
+}
+   
+with (Rocket) {
+    if (distance_to_object(other) &lt; other.blastRadius) {
+        vecdir = point_direction(other.x, other.y, x, y);
+        magnitude = other.blastRadius-distance_to_object(other);
+        motion_add(other.vecdir, other.magnitude/3)
+    }
+}
+
+with (DeadGuy) {
+    if (distance_to_object(other) &lt; other.blastRadius){
+        vecdir = point_direction(other.x, other.y, x, y);
+        magnitude = other.blastRadius-distance_to_object(other);
+        motion_add(other.vecdir, other.magnitude/3)
+    }
+}
+
+with (Gib) {
+    if (distance_to_object(other) &lt; other.blastRadius){
+        vecdir = point_direction(other.x, other.y, x, y);
+        magnitude = other.blastRadius-distance_to_object(other);
+        motion_add(other.vecdir, other.magnitude/3)
+        rotspeed *= magnitude/other.blastRadius;
+    }
+}
+
+with(LooseSheet) {
+    if (distance_to_object(other) &lt; other.blastRadius){
+        vecdir = point_direction(other.x, other.y, x, y);
+        magnitude = other.blastRadius-distance_to_object(other);
+        motion_add(other.vecdir, other.magnitude/3)
+    }
+}
+with(Bubble) {
+    if (distance_to_object(other) &lt; other.blastRadius){
+        magnitude = other.blastRadius-distance_to_object(other);
+        alarm[0] -= magnitude;
+    }    
+}
+
+x = o_x;
+y = o_y;
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

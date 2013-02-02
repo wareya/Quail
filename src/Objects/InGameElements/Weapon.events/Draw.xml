@@ -30,12 +30,43 @@ if distance_to_point(xviewoffset+xviewsize/2,yviewoffset+yviewsize/2) &gt; 800 e
     }
 
 if object_index != SentryTurret {    
-    if (!owner.invisible) &amp;&amp; (!owner.taunting) &amp;&amp; owner.cloakAlpha &gt; 0.5 &amp;&amp; !owner.omnomnomnom &amp;&amp; !owner.player.humiliated {
-        draw_sprite_ext(sprite_index,owner.team+offset,round(x+xoffset*image_xscale),round(y+yoffset),image_xscale,image_yscale,image_angle,c_white,owner.cloakAlpha);
-        if owner.ubered == 1 {
-            if owner.team == TEAM_RED ubercolour = c_red;
-            else if owner.team == TEAM_BLUE ubercolour = c_blue;
-            draw_sprite_ext(sprite_index,owner.team+offset,round(x+xoffset*image_xscale),round(y+yoffset),image_xscale,image_yscale,image_angle,ubercolour,0.7);
+    if (!owner.invisible and !owner.taunting and owner.cloakAlpha &gt; 0.5 and !owner.omnomnomnom and !owner.player.humiliated)
+    {
+        if (owner.aimDirection mod 360 &lt; 180 and ((object_index == Minegun) or (object_index == Medigun))) // aiming generally up
+        {
+            new_xoffset = 4 * (sin(degtorad(owner.aimDirection))) + xoffset; // push gun in front of chest
+            new_yoffset = yoffset;
+            
+        }
+        else if (owner.aimDirection mod 360 &gt; 180 and ((object_index == Minegun) or (object_index == Medigun))) // down
+        {
+            new_xoffset = xoffset;
+            new_yoffset = 2 * (sin(degtorad(owner.aimDirection))) + yoffset; // pull gun up a little
+        }
+        else
+        {
+            new_xoffset = xoffset;
+            new_yoffset = yoffset;
+        }
+        
+        new_xoffset *= image_xscale;
+        
+        // let's adjust some pixel precision quirks with GM's rotation
+        truedir = owner.aimDirection mod 360;
+        if(truedir &lt; 90) // if we're looking up-right...
+            new_yoffset -= sin(degtorad(owner.aimDirection));
+        else if (truedir &lt; 180) // looking up-left
+            new_xoffset -= sin(degtorad(owner.aimDirection));
+        else if(truedir &lt; 270) // down-left
+            new_yoffset += sin(degtorad(owner.aimDirection));
+        else // looking down-right
+            new_xoffset += sin(degtorad(owner.aimDirection));
+        
+        draw_sprite_ext(sprite_index,owner.team+offset,round(x)+new_xoffset,round(y)+new_yoffset,image_xscale,image_yscale,image_angle,c_white,owner.cloakAlpha);
+        if (owner.ubered)
+        {
+            ubercolor = ((owner.team == TEAM_RED) * c_red) + ((owner.team == TEAM_BLUE) * c_blue); // pick uber color with ugly logic hacking instead of an ugly if-test tree
+            draw_sprite_ext(sprite_index,owner.team+offset,round(x)+new_xoffset*image_xscale,round(y)+new_yoffset,image_xscale,image_yscale,image_angle,ubercolour,0.7);
         }
     }
 } else {             

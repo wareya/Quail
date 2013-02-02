@@ -61,7 +61,6 @@
         }
 
         if(hleft != 0 && !place_free(x + sign(hleft), y)) { // we hit a wall on the left or right
-            moveStatus = 0;
             if(place_free(x + sign(hleft), y - 6)) { // if we could just walk up the step
                 y -= 6; // hop up the step.
                 collisionRectified = true;

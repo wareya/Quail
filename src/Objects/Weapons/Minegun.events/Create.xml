@@ -14,16 +14,28 @@
       <appliesTo>.self</appliesTo>
       <arguments>
         <argument kind="STRING">{
-    xoffset = -3;
-    yoffset = -2;
-    refireTime = 26;
-    maxMines = 8;
-    lobbed = 0;
-    reloadTime = 20;
-    reloadBuffer = 26;
-    maxAmmo = 8;
+    //attributes
+    xoffset = -12;
+    yoffset = -6;
+    hud_blu_offset = 1;
+    
+    //timers/stats
+    refireTime = 50;
+    reloadTime = 0;
+    reloadBuffer = 0;
+    idle = true;
+    
+    //counters
+    maxMines = 0;
+    maxAmmo = 0;
+    chargeUp = 0;
+    chargeMax = 138;
     ammoCount = maxAmmo;
-    idle=true;
+    
+    // Sticky HUD. Because real men let computers count for them.
+    makehud = 0;
+    if (global.myself.class == CLASS_DEMOMAN and !instance_exists(StickyCounter) and makehud)
+        instance_create(0,0,StickyCounter);
 }
 </argument>
       </arguments>

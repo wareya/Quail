@@ -20,9 +20,9 @@
 }
 
 target = noone;
-if (instance_exists(global.myself.object.currentWeapon)) {
-    target = global.myself.object.currentWeapon.healTarget;
-}
+if (instance_exists(global.myself.object.currentWeapon))
+    if (global.myself.object.currentWeapon.healTarget != noone)
+        target = global.myself.object.currentWeapon.healTarget.player;
 </argument>
       </arguments>
     </action>

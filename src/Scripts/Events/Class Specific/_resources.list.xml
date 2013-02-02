@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+  <resource name="doEventLatchHealingTarget" type="RESOURCE"/>
+  <resource name="sendEventLatchHealingTarget" type="RESOURCE"/>
+  <resource name="doEventReleaseHealingTarget" type="RESOURCE"/>
+  <resource name="sendEventReleaseHealingTarget" type="RESOURCE"/>
+</resources>

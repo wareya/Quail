@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <constants>
-  <constant name="VERSION" value="24500"/>
-  <constant name="GAME_VERSION_STRING" value="&quot;v2.4.5&quot;"/>
-  <constant name="PROTOCOL_UUID" value="&quot;31ce5361-4852-9d95-3ac2-2b3a07219a40&quot;"/>
+  <constant name="VERSION" value="24400"/>
+  <constant name="GAME_VERSION_STRING" value="&quot;v2.4.4&quot;"/>
+  <constant name="PROTOCOL_UUID" value="&quot;e5e1c9af-472b-98bf-83c9-7888607b0140&quot;"/>
   <constant name="GG2_LOBBY_UUID" value="&quot;1ccf16b1-436d-856f-504d-cc1af306aaa7&quot;"/>
   <constant name="HELLO" value="0"/>
   <constant name="PLAYER_JOIN" value="1"/>
@@ -52,6 +52,9 @@
   <constant name="HAXXY_CHALLENGE_RESPONSE" value="52"/>
   <constant name="MESSAGE_STRING" value="53"/>
   <constant name="WEAPON_FIRE" value="54"/>
+  <constant name="MEDIC_LATCH" value="55"/>
+  <constant name="MEDIC_RELEASE" value="56"/>
+  <constant name="INPUT_CMD" value="57"/>
   <constant name="HAXXY_PUBLIC_KEY" value="&quot;70095e0fd9754e5a3ce2cb32f109148e&quot;"/>
   <constant name="TEAM_RED" value="0"/>
   <constant name="TEAM_BLUE" value="1"/>

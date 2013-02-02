@@ -257,11 +257,10 @@ do {
             break;
       
         case DROP_INTEL:
-            receiveCompleteMessage(global.serverSocket,1,global.tempBuffer);
+            receiveCompleteMessage(global.serverSocket,2,global.tempBuffer);
             player = ds_list_find_value(global.players, read_ubyte(global.tempBuffer));
-            if player.object != -1 {
-                with player.object event_user(5); 
-            }
+            type = read_ubyte(global.tempBuffer);
+            doEventDropIntel(player, type);
             break;
             
         case RETURN_INTEL:
@@ -290,17 +289,22 @@ do {
         case OMNOMNOMNOM:
             receiveCompleteMessage(global.serverSocket,1,global.tempBuffer);
             player = ds_list_find_value(global.players, read_ubyte(global.tempBuffer));
-            if(player.object != -1) {
-                with(player.object) {
-                    omnomnomnom=true;
-                    if(player.team == TEAM_RED) {
-                        omnomnomnomindex=0;
-                        omnomnomnomend=31;
-                    } else if(player.team==TEAM_BLUE) {
-                        omnomnomnomindex=32;
-                        omnomnomnomend=63;
+            if(player.object != -1)
+            {
+                with(player.object)
+                {
+                    omnomnomnom = true;
+                    if(player.team == TEAM_RED)
+                    {
+                        omnomnomnomindex = 0;
+                        omnomnomnomend = 31;
                     }
-                    xscale=image_xscale; 
+                    else if(player.team==TEAM_BLUE)
+                    {
+                        omnomnomnomindex = 32;
+                        omnomnomnomend = 63;
+                    }
+                    xscale = image_xscale; 
                 } 
             }
             break;
@@ -308,9 +312,9 @@ do {
         case TOGGLE_ZOOM:
             receiveCompleteMessage(global.serverSocket,1,global.tempBuffer);
             player = ds_list_find_value(global.players, read_ubyte(global.tempBuffer));
-            if player.object != -1 {
+            if (player.object != -1)
                 toggleZoom(player.object);
-            }
+            
             break;
                                          
         case PASSWORD_REQUEST:
@@ -333,9 +337,10 @@ do {
             
         case KICK:
             receiveCompleteMessage(global.serverSocket,1,global.tempBuffer);
-            reason = read_ubyte(global.tempBuffer);
-            if reason == KICK_NAME kickReason = "Name Exploit";
-            else kickReason = "";
+            if (read_ubyte(global.tempBuffer) == KICK_NAME)
+                kickReason = "Name Exploit";
+            else
+                kickReason = "";
             show_message("You have been kicked from the server. "+kickReason+".");
             instance_destroy();
             exit;
@@ -481,6 +486,26 @@ do {
                 
                 doEventFireWeapon(player, read_ushort(global.tempBuffer));
             }
+            break;
+            
+        case MEDIC_LATCH:
+            receiveCompleteMessage(global.serverSocket,2,global.tempBuffer);
+            
+            targetPlayer = ds_list_find_value(global.players, read_ubyte(global.tempBuffer));
+            medicPlayer =  ds_list_find_value(global.players, read_ubyte(global.tempBuffer));
+            
+            doEventLatchHealingTarget(targetPlayer, medicPlayer);
+            
+            break;
+        
+        case MEDIC_RELEASE:
+            receiveCompleteMessage(global.serverSocket,2,global.tempBuffer);
+            
+            targetPlayer = ds_list_find_value(global.players, read_ubyte(global.tempBuffer));
+            medicPlayer =  ds_list_find_value(global.players, read_ubyte(global.tempBuffer));
+            
+            doEventReleaseHealingTarget(targetPlayer, medicPlayer);
+            
             break;
             
         default:

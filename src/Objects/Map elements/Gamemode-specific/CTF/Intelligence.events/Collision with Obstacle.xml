@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="COLLISION" with="Obstacle">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">mapscale = 6;
+bounceloss = 3;
+bouncefactor = 0.75;
+
+if (!place_meeting(x+hspeed, y, Obstacle)) // seemlingly flat ground
+{
+    vspeed = max(0, abs(vspeed)*bouncefactor-bounceloss) * -sign(vspeed);
+    hspeed *= 0.95;
+}
+// first let's make sure it's not a slope
+// I can't get a for loop to work right so here have an IF ELSE STACK
+else if(!place_meeting(x + hspeed, y - 6, Obstacle))
+{
+    vspeed *= 0.95;
+    y -= 6;
+    vspeed = min(0, vspeed);
+}
+else if(!place_meeting(x + hspeed, y + 6, Obstacle))
+{
+    vspeed *= 0.95;
+    y += 6;
+    vspeed = max(0, vspeed);
+}
+else if(!place_meeting(x + hspeed, y - 12, Obstacle))
+{
+    vspeed *= 0.95;
+    y -= 12;
+    vspeed = min(0, vspeed);
+}
+else if(!place_meeting(x + hspeed, y + 12, Obstacle))
+{
+    vspeed *= 0.95;
+    y += 12;
+    vspeed = max(0, vspeed);
+}
+else if(!place_meeting(x + hspeed, y - 18, Obstacle))
+{
+    vspeed *= 0.95;
+    y -= 18;
+    vspeed = min(0, vspeed);
+}
+else if(!place_meeting(x + hspeed, y + 18, Obstacle))
+{
+    vspeed *= 0.95;
+    y += 18;
+    vspeed = max(0, vspeed);
+}
+else if (!place_meeting(x, y+vspeed, Obstacle)) // a wall
+{
+    vspeed *= 0.95;
+    hspeed = max(0, abs(hspeed)*bouncefactor-bounceloss) * -sign(hspeed);
+}
+else
+    speed = max(0, abs(speed)*bouncefactor-bounceloss) * -sign(speed);
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>

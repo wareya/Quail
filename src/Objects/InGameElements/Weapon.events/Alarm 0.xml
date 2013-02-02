@@ -14,8 +14,9 @@
       <appliesTo>.self</appliesTo>
       <arguments>
         <argument kind="STRING">{
-    readyToShoot=true;
-}</argument>
+    readyToShoot = true;
+}
+</argument>
       </arguments>
     </action>
   </actions>

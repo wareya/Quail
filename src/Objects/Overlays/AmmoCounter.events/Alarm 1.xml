@@ -13,12 +13,15 @@
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">if(animationState == 1) {
+        <argument kind="STRING">if(animationState == 1)
+{
     animationState = 0;
-    alarm[1]=1;
-} else {
+    alarm[1] = 1;
+}
+else
+{
     animationState = 1;
-    alarm[1]=14;
+    alarm[1] = 14;
 }
 
 </argument>
