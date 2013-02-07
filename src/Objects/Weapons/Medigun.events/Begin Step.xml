@@ -45,7 +45,7 @@
         
         if(!ubering and uberCharge &lt; 2000)
         {
-            uberCharge += 1.5;
+            uberCharge += 1.5 * global.tickfactor;
             
             var setup;
             setup = false;
@@ -56,7 +56,7 @@
             }
             
             if(healTarget.hp &lt; healTarget.maxHp/2 or setup)
-                uberCharge += 1;
+                uberCharge += 1 * global.tickfactor;
             
             if(uberCharge &gt;= 2000 and global.isHost)
             {

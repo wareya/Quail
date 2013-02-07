@@ -8,7 +8,8 @@
   </grid>
   <speed>30</speed>
   <persistent>false</persistent>
-  <creationCode/>
+  <creationCode>instance_create(0,0,globalSpeedController);
+</creationCode>
   <backgroundColor>000000</backgroundColor>
   <drawBackgroundColor>true</drawBackgroundColor>
   <backgrounds>

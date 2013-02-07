@@ -19,18 +19,20 @@
     healer = -1;
     if (lastDamageDealer != -1)
         if (lastDamageDealer.object != -1)
-            if (lastDamageDealer.object.healer != -1)
-                healer = lastDamageDealer.object.healer;
+            healer = lastDamageDealer.object.healer;
     sendEventDestruction(ownerPlayer, lastDamageDealer, healer, lastDamageSource);
     doEventDestruction(ownerPlayer, lastDamageDealer, healer, lastDamageSource);
     exit;
 }
-if(hp&gt;maxHp) hp=maxHp;
+if(hp &gt; maxHp)
+    hp = maxHp;
 
-if (built == 1) {
-    if (idleTimer == true) {
+if (built)
+{
+    if (idleTimer)
+    {
         playsound(x,y,SentryIdle);
-        alarm[5] = 90;    
+        alarm[5] = 90 * global.ticks_per_abs;    
     }    
     idleTimer = false;
 }

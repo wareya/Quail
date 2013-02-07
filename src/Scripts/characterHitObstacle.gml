@@ -4,10 +4,10 @@
 
 {
     var oldx, oldy, oldhspeed, oldvspeed, distleft, hleft, vleft;
-    oldx=x;
-    oldy=y;
-    oldhspeed=hspeed;
-    oldvspeed=vspeed;
+    oldx = x;
+    oldy = y;
+    oldhspeed = hspeed;
+    oldvspeed = vspeed;
 
     // slide left and right to get outside of any walls
     move_outside_solid(0, 8);
@@ -19,20 +19,15 @@
     var loopCounter, stuck;
     loopCounter = 0;
     stuck = 0;
-    while((abs(hleft) >= 1 || abs(vleft) >= 1) && stuck = 0){ // while we still have distance to travel
-        loopCounter += 1;
-        if(loopCounter > 10) {
-            // debugging stuff.
-            //show_message("x = " + string(x) + "#y = " + string(y) + "#oldx = " + string(oldx) + "#oldy = " + string(oldy) + "#hspeed = " + string(hspeed) + "#vspeed = " + string(vspeed) + "#hleft = " + string(hleft) + "#vleft = " + string(vleft) + "#hdirection = " + string(hdirection) + "#vdirection = " + string(vdirection));
-            //game_end();
-
-            // After 10 loops, it's assumed we're stuck.  Will eliminating vertical movement fix the problem?
-            //vspeed = 0;
-            //vleft = 0;
-            // note that we should instead be checking the collisionRectified variable instead of waiting
-            // some arbitrary number of iterations
+    
+    // while we still have distance to travel
+    while((abs(hleft) >= 1 * global.tickfactor
+          or abs(vleft) >= 1 * global.tickfactor)
+          and stuck = 0)
+    {
+        loopCounter += 1 * global.tickfactor;
+        if(loopCounter > 10)
             stuck = 1;
-        }
 
         var prevX, prevY, collisionRectified;
         collisionRectified = false; // set this to true when we fix a collision problem

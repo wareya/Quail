@@ -21,7 +21,7 @@ repeat(8)
 {
     shot = instance_create(x, y, Shot);
     shot.direction = owner.aimDirection+(random(11) - 5.5);
-    shot.speed = 12.5 + random(1);
+    shot.speed = 12.5 + random(1) * global.tickfactor;
     with(shot)
         hspeed += other.owner.hspeed/2;
     

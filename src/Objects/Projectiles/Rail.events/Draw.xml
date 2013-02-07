@@ -44,7 +44,7 @@ for (i = 0; i &lt;= stepped; i += 1)
 
 vspeed = oldvspeed;
 
-laserAlpha /= 1.75;
+laserAlpha /= scalemult(1.75);
 draw_set_alpha(1);
 </argument>
       </arguments>

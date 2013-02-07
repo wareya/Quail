@@ -15,8 +15,9 @@
       <arguments>
         <argument kind="STRING">xoffset=-17;
 yoffset=-10;
-reloadTime=5;
-refireTime=5
+reloadTime=5 / global.tickfactor;
+refireTime=5 / global.tickfactor;
+rotateRate=0.3 * global.tickfactor;
 readyToShoot=true;
 noticedTarget=true;
 hitDamage=8;

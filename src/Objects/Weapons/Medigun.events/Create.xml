@@ -18,8 +18,8 @@
     yoffset = -4;
     
     healDistance = 300;
-    healAmount = 0.5;
-    uberDrainRate = 10;
+    healAmount = 0.5 * global.tickfactor;
+    uberDrainRate = 10 * global.tickfactor;
     
     healTarget = noone;
     hphealed = 0;
@@ -29,9 +29,9 @@
     healedThisStep = false;
     
     maxAmmo = 8;
-    reloadTime = 20;
-    reloadBuffer = 20;
-    refireTime = 20;
+    reloadTime = 20 / global.tickfactor;
+    reloadBuffer = 20 / global.tickfactor;
+    refireTime = 20 / global.tickfactor;
     ammoCount = maxAmmo;
     
     idle = true;

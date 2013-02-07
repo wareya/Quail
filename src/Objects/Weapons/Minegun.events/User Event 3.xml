@@ -16,7 +16,7 @@
         <argument kind="STRING">if (chargeUp == 0) // if we're starting, begin the chargeup sound
     chargingsound = playsound(x, y, RailChargeSnd)
 if (chargeUp &lt; chargeMax)  // increase charge
-    chargeUp += 1;
+    chargeUp += 1 * global.tickfactor;
 if (chargeUp == chargeMax) // if we're overcharged, set off the timer
     event_user(10);
 </argument>

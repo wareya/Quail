@@ -14,7 +14,8 @@
       <appliesTo>.self</appliesTo>
       <arguments>
         <argument kind="STRING">travelDistance+=1;
-if travelDistance &gt;=30 travelDistance=30;
+if (travelDistance &gt;=30)
+    travelDistance=30;
 
 if fade image_alpha-=0.1;
     speed += 1;
