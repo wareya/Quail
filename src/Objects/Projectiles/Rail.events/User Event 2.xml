@@ -44,7 +44,7 @@ with (Rocket) {
     if (distance_to_object(other) &lt; other.blastRadius) {
         vecdir = point_direction(other.x, other.y, x, y);
         magnitude = other.blastRadius-distance_to_object(other);
-        motion_add(vecdir, other.magnitude/3)
+        motion_add(vecdir, magnitude/3)
     }
 }
 
@@ -52,7 +52,7 @@ with (DeadGuy) {
     if (distance_to_object(other) &lt; other.blastRadius){
         vecdir = point_direction(other.x, other.y, x, y);
         magnitude = other.blastRadius-distance_to_object(other);
-        motion_add(vecdir, other.magnitude/3)
+        motion_add(vecdir, magnitude/3)
     }
 }
 
@@ -69,7 +69,7 @@ with(LooseSheet) {
     if (distance_to_object(other) &lt; other.blastRadius){
         vecdir = point_direction(other.x, other.y, x, y);
         magnitude = other.blastRadius-distance_to_object(other);
-        motion_add(vecdir, other.magnitude/3)
+        motion_add(vecdir, magnitude/3)
     }
 }
 with(Bubble) {
