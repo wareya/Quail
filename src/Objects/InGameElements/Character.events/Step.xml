@@ -52,13 +52,13 @@ while(spent &lt; iterspace and speed != 0)
             
             vspeed = min(0, vspeed);
             y = round(y);
-            event_user(0);
+            event_user(9);
         }
         else
         {
             x += xd;
             y += yd;
-            event_user(0);
+            event_user(9);
             spent += itersize;
         }
     }
@@ -72,7 +72,7 @@ while(spent &lt; iterspace and speed != 0)
             
             vspeed = min(0, vspeed);
             y = round(y);
-            event_user(0);
+            event_user(9);
         }
         else if(!place_meeting(x+xd, y+slopesize, Obstacle) and abs(xd) &gt;= abs(yd))
         {
@@ -82,7 +82,7 @@ while(spent &lt; iterspace and speed != 0)
             
             vspeed = max(0, vspeed);
             y = round(y);
-            event_user(0);
+            event_user(9);
         }
         else if(!place_meeting(x+xd, y, Obstacle))
         {
@@ -90,7 +90,7 @@ while(spent &lt; iterspace and speed != 0)
             spent += abs(xd);
             
             vspeed = 0;
-            event_user(0);
+            event_user(9);
             
             oldspace = iterspace;
             iterspace = point_distance(0, oldy, olddx, y);
@@ -102,7 +102,7 @@ while(spent &lt; iterspace and speed != 0)
             spent += abs(yd);
             
             hspeed = 0;
-            event_user(0);
+            event_user(9);
             
             oldspace = iterspace;
             iterspace = point_distance(oldx, 0, x, olddy);
@@ -113,7 +113,7 @@ while(spent &lt; iterspace and speed != 0)
             x = round(x);
             y = round(y);
             speed = 0;
-            event_user(0);
+            event_user(9);
         }
     }
 }

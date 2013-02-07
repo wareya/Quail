@@ -100,7 +100,7 @@
     intensityDecay = burnIntensity / decayDuration;
     burnedBy = -1;
     afterburnSource = -1;
-    numFlames = 4 ; //purely cosmetic - the number of flames that someone has with max burnIntensity
+    numFlames = 4; //purely cosmetic - the number of flames that someone has with max burnIntensity
     for(i = 0; i &lt; numFlames; i += 1)
     {
         flameArray_x[i] = random_range(-(bbox_right-bbox_left)/2, (bbox_right-bbox_left)/2);
