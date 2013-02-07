@@ -15,7 +15,7 @@
       <arguments>
         <argument kind="STRING">{
     hitDamage = 8;
-    lifetime = 40 * global.tickfactor;
+    lifetime = 40 / global.tickfactor;
     alarm[0] = lifetime;
     originx=x;
     originy=y;

@@ -3,6 +3,7 @@
   <resource name="head_message" type="RESOURCE"/>
   <resource name="scalemult" type="RESOURCE"/>
   <resource name="initwarhud" type="RESOURCE"/>
+  <resource name="instance_kill" type="RESOURCE"/>
   <resource name="cropShift" type="RESOURCE"/>
   <resource name="uncropShift" type="RESOURCE"/>
   <resource name="createGib" type="RESOURCE"/>

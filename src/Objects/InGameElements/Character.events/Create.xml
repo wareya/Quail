@@ -21,6 +21,7 @@
     jumpStrength = 8;
     capStrength = 1;
     mask_index = charHullS;
+    currentWeapon = noone;
     
     /* meta state variables */
     // controls

@@ -14,29 +14,29 @@
       <appliesTo>.self</appliesTo>
       <arguments>
         <argument kind="STRING">// I forgot exactly what this does, but it's an important rectification.
-if(place_meeting(x+sign(hspeed), y, Obstacle) and place_meeting(x+sign(hspeed), y-1, Obstacle))
+if(place_meeting(x+sign(hspeed), y, Obstacle) and place_meeting(x+sign(hspeed), y-1, Obstacle) and status != "air")
 {   hspeed = 0;
     oldspace = iterspace;
-    iterspace = point_distance(oldx, 0, x, olddy);
+    iterspace = point_distance(oldx_move, 0, x, olddy);
     x = round(x);
 }
 if(place_meeting(x, y+sign(vspeed), Obstacle))
 {   vspeed = 0;
     oldspace = iterspace;
-    iterspace = point_distance(0, oldy, olddx, y);
+    iterspace = point_distance(0, oldy_move, olddx, y);
     y = round(y);
 }
 if(place_meeting(x+sign(hspeed), y+sign(vspeed), Obstacle) and place_meeting(x+sign(hspeed), y-1, Obstacle))
 {   if(!place_meeting(x+sign(hspeed), y, Obstacle))
     {   vspeed = 0;
         oldspace = iterspace;
-        iterspace = point_distance(0, oldy, olddx, y);
+        iterspace = point_distance(0, oldy_move, olddx, y);
         y = round(y);
     }
-    else
+    else if (status != "air")
     {   hspeed = 0;
         oldspace = iterspace;
-        iterspace = point_distance(oldx, 0, x, olddy);
+        iterspace = point_distance(oldx_move, 0, x, olddy);
         x = round(x);
     }
 }

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="OTHER" id="18">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">speed *= global.tickfactor;
+
+slopesize = 6;
+iters = ceil(speed);
+iterspace = speed;
+spent = 0;
+olddx = hspeed;
+olddy = vspeed;
+oldx_move = x;
+oldy_move = y;
+
+if(speed &lt; 1)
+    status = "still";
+
+while(spent &lt; iterspace and speed != 0)
+{
+    itersize = (iterspace-spent)/ceil((iterspace-spent));
+    
+    xd =  cos(degtorad(direction))*itersize;
+    yd = -sin(degtorad(direction))*itersize;
+    
+    if(!place_meeting(x+xd, y+yd, Obstacle))
+    {
+        // walk down slopes
+        if(   !place_meeting(x+xd, y+1,           Obstacle)
+           and place_meeting(x,    y+1,           Obstacle)
+           and place_meeting(x+xd, y+slopesize+1, Obstacle)
+           and vspeed &gt;= 0)
+        {
+            status = "downslope";
+            x += xd;
+            y += slopesize;
+            spent += point_distance(0, 0, xd, slopesize);
+            
+            vspeed = min(0, vspeed);
+            y = round(y);
+            event_user(9);
+        }
+        // purely in air
+        else
+        {
+            status = "air";
+            x += xd;
+            y += yd;
+            event_user(9);
+            spent += itersize;
+        }
+    }
+    else // place_meeting(x+xd, y+yd, Obstacle) true
+    {
+        // normal up-slope
+        if(!place_meeting(x+xd, y-slopesize, Obstacle)
+           )//and abs(xd) &gt;= abs(yd))
+        {
+            status = "slope";
+            x += xd;
+            y -= slopesize;
+            spent += point_distance(0, 0, xd, -slopesize);
+            
+            vspeed = min(0, vspeed);
+            y = round(y);
+            event_user(9);
+        }
+        // slope down sloped ceilings
+        else if(!place_meeting(x+xd, y+slopesize, Obstacle)
+                )//and abs(xd) &gt;= abs(yd))
+        {
+            status = "ceil";
+            x += xd;
+            y += slopesize;
+            spent += point_distance(0, 0, xd, slopesize);
+            
+            vspeed = max(0, vspeed);
+            y = round(y);
+            event_user(9);
+        }
+        // ceiling (apparently)
+        else if(!place_meeting(x+xd, y, Obstacle))
+        {
+            status = "ceil";
+            x += xd;
+            spent += abs(xd);
+            
+            vspeed = 0;
+            event_user(9);
+            
+            oldspace = iterspace;
+            iterspace = point_distance(0, oldy_move, olddx, y);
+            y = round(y);
+        }
+        // wall (apparently)
+        else if(!place_meeting(x, y+yd, Obstacle))
+        {
+            status = "wall";
+            y += yd;
+            spent += abs(yd);
+            
+            hspeed = 0;
+            event_user(9);
+            
+            oldspace = iterspace;
+            iterspace = point_distance(oldx_move, 0, x, olddy);
+            x = round(x);
+        }
+        // inside of obstacle
+        else
+        {
+            status = "stuck";
+            x = round(x);
+            y = round(y);
+            speed = 0;
+            event_user(9);
+        }
+    }
+}
+speed /= global.tickfactor;
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>
