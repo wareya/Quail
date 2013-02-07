@@ -100,9 +100,9 @@ if (!player.humiliated and ((keyState | pressedKeys) &amp; $08)
 }
 
 // Cloak
-if (!player.humiliated &amp;&amp; (pressedKeys &amp; $08)
-    &amp;&amp; canCloak &amp;&amp; ((cloakAlpha &lt;= 0.5 and cloak) || (cloakAlpha == 1 and !cloak))
-    &amp;&amp; !intel  &amp;&amp; taunting == false &amp;&amp; !(keyState &amp; $10))
+if (!player.humiliated and (pressedKeys &amp; $08)
+    and canCloak and ((cloakAlpha &lt;= 0.5 and cloak) || (cloakAlpha == 1 and !cloak))
+    and !intel  and !taunting and !(keyState &amp; $10))
 {
     if(currentWeapon.readyToStab)
     {
@@ -174,22 +174,40 @@ if(moveStatus == 1 or moveStatus == 2 or moveStatus == 4)
         }
     }
 }
-if(!taunting &amp;&amp; !omnomnomnom)
-{
-    if((keyState|pressedKeys) &amp; $40 and hspeed &gt; -runPower * controlFactor / (baseFriction - 1))
-        hspeed -= runPower*controlFactor * global.tickfactor;
-        
-    if((keyState|pressedKeys) &amp; $20 and hspeed &lt; runPower * controlFactor / (baseFriction - 1))
-        hspeed += runPower*controlFactor * global.tickfactor;
-}
-//divide friction as normal if going way too fast, or controlling motion, based on normal max speed
-if(abs(hspeed) &gt; abs(baseControl / (baseFriction - 1) * 2) or
-   ((keyState|pressedKeys) &amp; $60 and !(abs(hspeed) &gt; abs(baseControl / (baseFriction - 1)))) )
-    hspeed /= scalemult(baseFriction);
-else //otherwise divide by the moveStatus's friction
-    hspeed /= scalemult(frictionFactor);
 
-if(pressedKeys &amp; $04) {
+// need this for a while and soon
+_maxspeed = abs(baseControl / (baseFriction - 1));
+
+// actually handle acceleration
+
+// get desired direction (right or left, 1 or -1)
+if(!taunting and !omnomnomnom)
+    _dir = ((keyState|pressedKeys) &amp; $20 != 0) - ((keyState|pressedKeys) &amp; $40 != 0);
+else 
+    _dir = 0;
+
+// actually move
+if(_dir*hspeed &lt; _maxspeed and _dir != 0)
+{
+    hspeed += _dir*runPower*controlFactor * global.tickfactor;
+    hspeed = min(max(hspeed, -_maxspeed), _maxspeed);
+}
+
+_power = 1;
+_factor = 1;
+if(_dir != 0) // controlling character, use friction effects
+{
+    // double the friction effect if on ground and changing directions
+    if (place_meeting(x, y+1, Obstacle) and _dir != sign(hspeed))
+        _power = 2;
+    // disable the friction if at very low speed
+    else if (abs(hspeed) &lt;= 0.2*_maxspeed)
+        _power = 0;
+}
+hspeed /= power(scalemult(frictionFactor), _power);
+
+if(pressedKeys &amp; $04)
+{
     setChatBubble(player, 45);
 }
 
@@ -197,11 +215,12 @@ pressedKeys = 0;
 releasedKeys = 0;
 
 // flame bubble
-if burnDuration&gt;0 &amp;&amp; player.class != CLASS_PYRO &amp;&amp; random(80) &lt;= 1 {
+if (burnDuration &gt; 0 and player.class != CLASS_PYRO and random(80) &lt;= 1)
+{
     setChatBubble(player, 49);
 }
 
-if(abs(hspeed) &lt; 0.195 /*and not moveStatus = 3*/) // Overweight carrying intel and shooting will get stuck with this number much higher
+if(abs(hspeed) &lt; 0.195 and _dir == 0)
 {
     hspeed = 0;
     animationImage = 0;

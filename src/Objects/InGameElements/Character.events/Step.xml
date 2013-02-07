@@ -13,7 +13,8 @@
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">grav = gravity * global.tickfactor;
+        <argument kind="STRING">
+grav = gravity * global.tickfactor;
 /* run gravity */
 vspeed += grav;
 
