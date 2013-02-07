@@ -14,20 +14,20 @@
       <appliesTo>.self</appliesTo>
       <arguments>
         <argument kind="STRING">// I forgot exactly what this does, but it's an important rectification.
-if(place_meeting(x+sign(hspeed), y, wallchunk) and place_meeting(x+sign(hspeed), y-1, wallchunk))
+if(place_meeting(x+sign(hspeed), y, Obstacle) and place_meeting(x+sign(hspeed), y-1, Obstacle))
 {   hspeed = 0;
     oldspace = iterspace;
     iterspace = point_distance(oldx, 0, x, olddy);
     x = round(x);
 }
-if(place_meeting(x, y+sign(vspeed), wallchunk))
+if(place_meeting(x, y+sign(vspeed), Obstacle))
 {   vspeed = 0;
     oldspace = iterspace;
     iterspace = point_distance(0, oldy, olddx, y);
     y = round(y);
 }
-if(place_meeting(x+sign(hspeed), y+sign(vspeed), wallchunk) and place_meeting(x+sign(hspeed), y-1, wallchunk))
-{   if(!place_meeting(x+sign(hspeed), y, wallchunk))
+if(place_meeting(x+sign(hspeed), y+sign(vspeed), Obstacle) and place_meeting(x+sign(hspeed), y-1, Obstacle))
+{   if(!place_meeting(x+sign(hspeed), y, Obstacle))
     {   vspeed = 0;
         oldspace = iterspace;
         iterspace = point_distance(0, oldy, olddx, y);
