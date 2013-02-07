@@ -107,9 +107,9 @@ if (!player.humiliated and (pressedKeys &amp; $08)
     if(currentWeapon.readyToStab)
     {
         if (cloak)
-        { // stop spies immediately picking up intel after uncloaking
+        { // stop spies immediately picking up intel immediate;y after uncloaking
             canGrabIntel = false;
-            alarm[1] = 30 * global.ticks_per_abs; // todo: dynamic
+            alarm[1] = 30 * global.ticks_per_abs;
         }
         cloak = !cloak;
     }

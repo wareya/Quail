@@ -127,7 +127,7 @@ while(spent &lt; iterspace and speed != 0)
             iterspace = point_distance(oldx_move, 0, x, olddy);
             x = round(x);
         }
-        // inside of obstacle
+        // inside of obstacle (from what we can tell)
         else
         {
             status = "stuck";

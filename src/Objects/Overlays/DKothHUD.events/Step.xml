@@ -18,7 +18,7 @@ if (global.isHost and hostTimer &gt; 0) {
     if ((!KothRedControlPoint.locked and KothRedControlPoint.team == TEAM_RED and KothRedControlPoint.capping == 0 and KothRedControlPoint.bluePresence == 0) or
         (!KothBlueControlPoint.locked and KothBlueControlPoint.team == TEAM_BLUE and KothBlueControlPoint.capping == 0 and KothBlueControlPoint.redPresence == 0))
     {
-        hostTimer -= 1;
+        hostTimer -= 1 * global.tickfactor;
         if (hostTimer == 0) {
             if abs(redTimer - blueTimer) &lt; 30*30
                 global.winners = TEAM_SPECTATOR;
@@ -34,9 +34,12 @@ if (global.isHost and hostTimer &gt; 0) {
     
 
 //both teams' countdown timers
-if (!KothRedControlPoint.locked or !KothBlueControlPoint.locked) {
-    if KothBlueControlPoint.team == TEAM_RED &amp;&amp; redTimer &gt;0 redTimer-=1;
-    if KothRedControlPoint.team == TEAM_BLUE &amp;&amp; blueTimer &gt;0 blueTimer-=1;
+if (!KothRedControlPoint.locked or !KothBlueControlPoint.locked)
+{
+    if (KothBlueControlPoint.team == TEAM_RED &amp;&amp; redTimer &gt; 0)
+        redTimer -= 1 * global.tickfactor;
+    if (KothRedControlPoint.team == TEAM_BLUE &amp;&amp; blueTimer &gt; 0)
+        blueTimer -= 1 * global.tickfactor;
 }
 //endgame logic
 if (redTimer == 0 and KothBlueControlPoint.team == TEAM_RED and KothBlueControlPoint.capping == 0 and KothBlueControlPoint.bluePresence == 0) global.winners = TEAM_RED;
@@ -50,7 +53,8 @@ if global.isHost and KothRedControlPoint.locked and KothBlueControlPoint.locked 
         GameServer.syncTimer = 1;
     }
 }
-if cpUnlock &gt; 0 cpUnlock -= 1;
+if cpUnlock &gt; 0
+    cpUnlock -= 1 * global.tickfactor;
 </argument>
       </arguments>
     </action>

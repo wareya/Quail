@@ -23,7 +23,7 @@ with(argument0.object)
     }
     intel = false;
     canGrabIntel = false;
-    alarm[1] = 30;
+    alarm[1] = 30 * global.ticks_per_abs;
     animationOffset = CHARACTER_ANIMATION_NORMAL;
     
     recordEventInLog(5, player.team, player.name, global.myself == player);
@@ -40,5 +40,5 @@ with(argument0.object)
     newIntel.speed = speed * 1.4;
     newIntel.direction = direction;
     
-    newIntel.alarm[0] = 900;
+    newIntel.alarm[0] = 900 * global.ticks_per_abs;
 }

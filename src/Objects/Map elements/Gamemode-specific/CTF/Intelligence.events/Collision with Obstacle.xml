@@ -13,56 +13,57 @@
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">mapscale = 6;
-bounceloss = 3;
+        <argument kind="STRING">//mapscale = 6;
+bounceloss = 3 * global.tickfactor; // don't ask.
 bouncefactor = 0.75;
+_friction = scalemult(0.95);
 
 if (!place_meeting(x+hspeed, y, Obstacle)) // seemlingly flat ground
 {
     vspeed = max(0, abs(vspeed)*bouncefactor-bounceloss) * -sign(vspeed);
-    hspeed *= 0.95;
+    hspeed *= _friction;
 }
 // first let's make sure it's not a slope
 // I can't get a for loop to work right so here have an IF ELSE STACK
 else if(!place_meeting(x + hspeed, y - 6, Obstacle))
 {
-    vspeed *= 0.95;
+    vspeed *= _friction;
     y -= 6;
     vspeed = min(0, vspeed);
 }
 else if(!place_meeting(x + hspeed, y + 6, Obstacle))
 {
-    vspeed *= 0.95;
+    vspeed *= _friction;
     y += 6;
     vspeed = max(0, vspeed);
 }
 else if(!place_meeting(x + hspeed, y - 12, Obstacle))
 {
-    vspeed *= 0.95;
+    vspeed *= _friction;
     y -= 12;
     vspeed = min(0, vspeed);
 }
 else if(!place_meeting(x + hspeed, y + 12, Obstacle))
 {
-    vspeed *= 0.95;
+    vspeed *= _friction;
     y += 12;
     vspeed = max(0, vspeed);
 }
 else if(!place_meeting(x + hspeed, y - 18, Obstacle))
 {
-    vspeed *= 0.95;
+    vspeed *= _friction;
     y -= 18;
     vspeed = min(0, vspeed);
 }
 else if(!place_meeting(x + hspeed, y + 18, Obstacle))
 {
-    vspeed *= 0.95;
+    vspeed *= _friction;
     y += 18;
     vspeed = max(0, vspeed);
 }
 else if (!place_meeting(x, y+vspeed, Obstacle)) // a wall
 {
-    vspeed *= 0.95;
+    vspeed *= _friction;
     hspeed = max(0, abs(hspeed)*bouncefactor-bounceloss) * -sign(hspeed);
 }
 else
