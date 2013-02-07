@@ -83,15 +83,6 @@ if(global.myself.object != -1)
     socket_send(global.serverSocket);
 }
 
-/* removing client side afk check
-if(keybyte != 0
-   or keyboard_check(global.left)
-   or keyboard_check(global.right)
-   or keyboard_check(global.jump)
-   or keyboard_check(global.down))
-    afktimer = afktimeout;
-*/
-
 </argument>
       </arguments>
     </action>

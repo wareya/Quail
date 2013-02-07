@@ -31,18 +31,6 @@ else // normal center-on-player view
     view_xview[0] = global.myself.object.x-view_wview[0]/2;
     view_yview[0] = global.myself.object.y-view_hview[0]/2;
 }
-    
-//AFK Check
-afktimer -= 1;
-if ((afktimer &lt;= 0) and !global.myself.object.afk)
-{
-    global.myself.object.afk = true;
-    
-    if !instance_exists(TeamSelectController)
-        instance_create(0,0,TeamSelectController);
-    with(TeamSelectController)
-        afk = true;
-}
    
 if(global.myself.class == CLASS_ENGINEER)
 {
