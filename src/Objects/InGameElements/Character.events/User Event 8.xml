@@ -65,12 +65,17 @@ while(spent &lt; iterspace and speed != 0)
     {
         // normal up-slope
         if(!place_meeting(x+xd, y-slopesize, Obstacle)
-           )//and abs(xd) &gt;= abs(yd))
+           and abs(xd) &gt;= abs(yd))
         {
             status = "slope";
             x += xd;
-            y -= slopesize;
-            spent += point_distance(0, 0, xd, -slopesize);
+            for (i = 0; i &lt;= slopesize; i += 1;)
+            {
+                if(!place_meeting(x+xd, y-i, Obstacle) and place_meeting(x+xd, y-i+1, Obstacle))
+                    break;
+            }
+            y -= i;
+            spent += point_distance(0, 0, xd, -i);
             
             vspeed = min(0, vspeed);
             y = round(y);
@@ -78,12 +83,17 @@ while(spent &lt; iterspace and speed != 0)
         }
         // slope down sloped ceilings
         else if(!place_meeting(x+xd, y+slopesize, Obstacle)
-                )//and abs(xd) &gt;= abs(yd))
+                and abs(xd) &gt;= abs(yd))
         {
             status = "ceil";
             x += xd;
-            y += slopesize;
-            spent += point_distance(0, 0, xd, slopesize);
+            for (i = 0; i &lt;= slopesize; i += 1;)
+            {
+                if(!place_meeting(x+xd, y+i, Obstacle) and place_meeting(x+xd, y+i-1, Obstacle))
+                    break;
+            }
+            y += i;
+            spent += point_distance(0, 0, xd, i);
             
             vspeed = max(0, vspeed);
             y = round(y);

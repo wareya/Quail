@@ -27,7 +27,9 @@ repeat(6) {
     with(shot) {   
         speed += owner.hspeed*hspeed/15;
     
-        alarm[0] = 35 * ((min(1, abs(cos(degtorad(other.owner.aimDirection)))*13 / abs(cos(degtorad(other.owner.aimDirection))*13+owner.hspeed))-1)/2+1);
+        alarm[0] = 35 * ((min(1, abs(cos(degtorad(other.owner.aimDirection))*13)
+                                 / abs(cos(degtorad(other.owner.aimDirection))*13+owner.hspeed))-1)
+                         /2+1) * global.ticks_per_abs;
     }
 }
 justShot = true;
