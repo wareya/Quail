@@ -30,20 +30,19 @@ if (chargeUp)
         n_x = t_x + h_s;
         n_y = t_y + v_s;
         
-        do
+        // collision priority: first in this list = prefer hitting this
+        inst = collision_line(t_x, t_y, n_x, n_y, Obstacle, true, true);
+        
+        if (inst == noone)
         {
-            inst = collision_line(t_x, t_y, n_x, n_y, Obstacle, true, true);
-            if(inst != noone)
-                break;
             inst = collision_line(t_x, t_y, n_x, n_y, Character, true, true);
-            if(inst != noone)
-                if (inst.team != owner.team)
-                    break;
-            inst = collision_line(t_x, t_y, n_x, n_y, Sentry, true, true);
-            if(inst != noone)
-                break;
+            if (inst != noone)
+                if (inst.team == owner.team)
+                    inst = noone;
         }
-        until (true)
+        
+        if (inst == noone)
+            inst = collision_line(t_x, t_y, n_x, n_y, Sentry, true, true);
         
         if(inst != noone)
             break;
@@ -90,7 +89,7 @@ if (chargeUp)
         team_color = c_blue;
     
     draw_set_color(team_color);
-    draw_set_alpha(0.35);
+    draw_set_alpha(0.25);
     draw_circle(t_x, t_y, 4, 0)
     draw_set_alpha(chargeUp/chargeMax*0.65);
     draw_circle(t_x, t_y, 4, 0)

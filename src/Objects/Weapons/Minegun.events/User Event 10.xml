@@ -35,6 +35,8 @@ rail.owner = owner;
 rail.ownerPlayer = ownerPlayer;
 rail.team = owner.team;
 rail.weapon = WEAPON_MINEGUN;
+with(rail)
+    event_user(1);
 
 // cleanup
 justShot = true;

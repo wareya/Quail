@@ -272,6 +272,8 @@ while(commandLimitRemaining > 0) {
                     keyState        = read_ushort(socket);
                     netAimDirection = read_ushort(socket)*360/65536;
                     netAimDistance  = read_ushort(socket)*10;
+                    aimDirection = netAimDirection;
+                    aimDistance = netAimDistance;
                     event_user(1);
                 }
             }
@@ -295,9 +297,10 @@ while(commandLimitRemaining > 0) {
             answer = "";
             for(i=1;i<=16;i+=1)
                 answer += chr(read_ubyte(socket) ^ ord(string_char_at(player.challenge, i)));
-            if(HAXXY_PUBLIC_KEY==md5(answer)) {
+            if(HAXXY_PUBLIC_KEY==md5(answer))
                 player.isHaxxyWinner = true;
-            } else {
+            else
+            {
                 socket_destroy_abortive(player.socket);
                 player.socket = -1;
             }

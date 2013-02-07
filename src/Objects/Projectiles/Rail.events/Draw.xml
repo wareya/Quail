@@ -26,33 +26,16 @@ draw_set_alpha(laserAlpha);
 
 oldvspeed = vspeed;
 
-for (i = 0; i &lt; step_limit; i += 1)
+for (i = 0; i &lt;= stepped; i += 1)
 {
     vspeed += gravity;
     n_x = t_x + hspeed;
     n_y = t_y + vspeed;
     
-    if (laserAlpha &gt; 0.05)
-    {
-        
-        if(owner.team == TEAM_RED)
-            draw_line_width_color(t_x ,t_y, n_x, n_y, 2, c_red,  c_red );
-        else
-            draw_line_width_color(t_x ,t_y, n_x, n_y, 2, c_blue, c_blue);
-        
-    }
+    if(owner.team == TEAM_RED)
+        draw_line_width_color(t_x ,t_y, n_x, n_y, 2, c_red,  c_red );
     else
-        instance_destroy();
-    
-    // find out if this segment collides with something; if so then break
-    if(    collision_line(t_x, t_y, n_x, n_y, Obstacle,  true, true) != noone
-        or collision_line(t_x, t_y, n_x, n_y, Sentry,    true, true) != noone)
-        break;
-    inst = collision_line(t_x, t_y, n_x, n_y, Character, true, true);
-    if(inst != noone)
-        if (inst.team != owner.team) // we don't want to collide with friendlies
-            break;
-    
+        draw_line_width_color(t_x ,t_y, n_x, n_y, 2, c_blue, c_blue);
     t_x = n_x;
     t_y = n_y;
 }
